@@ -914,7 +914,7 @@ export function useGame() {
 ```tsx
 "use client";
 import { useRef, useState } from "react";
-import { GRID_W, GRID_H, createState, type State } from "@nokiadot/engine";
+import { createState, type State } from "@nokiadot/engine";
 import { PreferencesProvider, usePreferences } from "@/components/PreferencesProvider.tsx";
 import { THEMES, themeVars } from "@/lib/ui/themes.ts";
 import { swipeToDir } from "@/lib/game/input.ts";
