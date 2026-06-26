@@ -1,7 +1,7 @@
 // loop.ts — the client render-loop core, kept pure so it is unit-testable and so
 // the input log it records replays to the identical score on the server. The
 // React layer only calls advance() from rAF and reads state to draw.
-import { createState, setDir, step, OPPOSITE, type Dir, type Input, type State } from "@nokiadot/engine";
+import { createState, setDir, step, type Dir, type Input, type State } from "@nokiadot/engine";
 
 export const MS_PER_TICK_BASE = 120;
 export const MS_PER_TICK_FLOOR = 80;
@@ -32,8 +32,6 @@ export function createRunController(seed: number): RunController {
     get inputs() { return inputs; },
     get alive() { return state.alive; },
     queueDir(dir) {
-      // Prevent 180-degree reversal against pending direction
-      if (dir === OPPOSITE[state.pendingDir]) return;
       const before = state.pendingDir;
       setDir(state, dir);
       if (state.pendingDir !== before) inputs.push({ tick: state.tick, dir: state.pendingDir });

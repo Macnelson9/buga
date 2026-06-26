@@ -15,7 +15,7 @@ test("queueDir logs an input only when pendingDir actually changes", () => {
   assert.equal(c.inputs.length, 0);
   c.queueDir(0); // up -> a real turn
   assert.equal(c.inputs.length, 1);
-  c.queueDir(2); // down is a 180 from up -> engine rejects, no log
+  c.queueDir(3); // left reverses the committed (un-stepped) right heading -> engine rejects, no log
   assert.equal(c.inputs.length, 1);
 });
 
