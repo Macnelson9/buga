@@ -850,9 +850,10 @@ export function useGame() {
   const runId = useRef<string | null>(null);
   const raf = useRef<number | null>(null);
   const last = useRef(0);
+  const starting = useRef(false);
 
   const endRun = useCallback(async () => {
-    if (raf.current) cancelAnimationFrame(raf.current);
+    if (raf.current) { cancelAnimationFrame(raf.current); raf.current = null; }
     sfx.play("die");
     setPhase("gameover");
     const c = ctl.current!;
@@ -873,14 +874,16 @@ export function useGame() {
     const c = ctl.current!;
     const dt = ts - last.current; last.current = ts;
     const before = c.state.foodEaten;
-    c.advance(dt);
+    const stepped = c.advance(dt);
     if (c.state.foodEaten > before) sfx.play("eat");
-    force((n) => n + 1);
+    if (stepped > 0) force((n) => n + 1);
     if (!c.alive) { void endRun(); return; }
     raf.current = requestAnimationFrame(tick);
   }, [endRun, sfx]);
 
   const start = useCallback(async () => {
+    if (starting.current) return;
+    starting.current = true;
     sfx.unlock(); sfx.play("start");
     setResult(null);
     let seed: number;
@@ -892,6 +895,7 @@ export function useGame() {
     setPhase("playing");
     last.current = performance.now();
     raf.current = requestAnimationFrame(tick);
+    starting.current = false;
   }, [sfx, tick]);
 
   const queueDir = useCallback((d: Dir) => { ctl.current?.queueDir(d); }, []);
