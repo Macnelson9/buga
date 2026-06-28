@@ -21,6 +21,10 @@ body { font-family: "DejaVu Sans Mono", ui-monospace, Menlo, Consolas, monospace
 .btn:disabled { opacity: 0.5; cursor: default; }
 .btn-link { background: none; border: none; color: var(--lit); font: inherit; cursor: pointer; padding: 0; text-decoration: underline; opacity: 0.8; }
 .btn-link:hover { opacity: 1; }
+.btn-outline { font-family: inherit; background: transparent; color: var(--lit); border: 2px solid var(--lit); border-radius: 8px; padding: 12px 18px; font-size: 14px; letter-spacing: .1em; cursor: pointer; opacity: 0.55; }
+.btn-outline:hover { opacity: 0.8; }
+.wallet-cta { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; }
+.wallet-cta-label { font-size: 13px; opacity: 0.9; letter-spacing: .04em; }
 .overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: color-mix(in srgb, var(--frame) 86%, transparent); border-radius: 4px; color: var(--hud); text-align: center; padding: 16px; }
 .board-wrap { position: relative; }
 .sheet-backdrop { position: fixed; inset: 0; background: #0007; display: flex; align-items: flex-end; justify-content: center; }
